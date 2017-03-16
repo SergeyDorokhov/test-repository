@@ -14,11 +14,11 @@ public class MySecondTest{
     @Before
     public void start() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     @Test
-    public void myFirstTest () throws InterruptedException {
+    public void myFirstTest() {
         driver.navigate().to("http://localhost/litecart/admin/");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
