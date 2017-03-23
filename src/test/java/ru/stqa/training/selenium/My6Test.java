@@ -1,5 +1,6 @@
 package ru.stqa.training.selenium;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -25,36 +26,42 @@ public class My6Test {
         driver.navigate().to("http://localhost/litecart/en/");
 
         //Находим количество товаров в блоке Most Popular
-        int countGoods = driver.findElements(By.cssSelector("div#box-most-popular div.content ul >li")).size();
+        int countGoods = driver.findElements(By.cssSelector("div#box-most-popular li")).size();
         System.out.println("Количество товаров в блоке Most Popular: " + countGoods);
 
         //Проверяем, что у каждого товара есть стикер и стикер только один
         for (int i = 1; i <= countGoods; i++) {
-            int countSticker = driver.findElements(By.cssSelector("div#box-most-popular div.content ul >li:nth-child("+i+") div.sticker")).size();
+            int countSticker = driver.findElements(By.cssSelector("div#box-most-popular li:nth-child("+i+") div.sticker")).size();
             System.out.println("Число стикеров у " + i +"-го товара: " + countSticker);
             assertThat(countSticker, is(1));
         }
 
         //Находим количество товаров в блоке Campaigns
-        countGoods = driver.findElements(By.cssSelector("div#box-campaigns div.content ul >li")).size();
+        countGoods = driver.findElements(By.cssSelector("div#box-campaigns li")).size();
         System.out.println("\nКоличество товаров в блоке Campaigns: " + countGoods);
 
         //Проверяем, что у каждого товара есть стикер и стикер только один
         for (int i = 1; i <= countGoods; i++) {
-            int countSticker = driver.findElements(By.cssSelector("div#box-campaigns div.content ul >li:nth-child("+i+") div.sticker")).size();
+            int countSticker = driver.findElements(By.cssSelector("div#box-campaigns li:nth-child("+i+") div.sticker")).size();
             System.out.println("Число стикеров у " + i +"-го товара: " + countSticker);
             assertThat(countSticker, is(1));
         }
 
         //Находим количество товаров в блоке Latest Products
-        countGoods = driver.findElements(By.cssSelector("div#box-latest-products div.content ul >li")).size();
+        countGoods = driver.findElements(By.cssSelector("div#box-latest-products li")).size();
         System.out.println("\nКоличество товаров в блоке Latest Products: " + countGoods);
 
         //Проверяем, что у каждого товара есть стикер и стикер только один
         for (int i = 1; i <= countGoods; i++) {
-            int countSticker = driver.findElements(By.cssSelector("div#box-latest-products div.content ul >li:nth-child("+i+") div.sticker")).size();
+            int countSticker = driver.findElements(By.cssSelector("div#box-latest-products li:nth-child("+i+") div.sticker")).size();
             System.out.println("Число стикеров у " + i +"-го товара: " + countSticker);
             assertThat(countSticker, is(1));
         }
+
+    }
+    @After
+    public void stop() {
+        driver.quit();
+        driver = null;
     }
 }
