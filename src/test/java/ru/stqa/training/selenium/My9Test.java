@@ -43,7 +43,7 @@ public class My9Test {
 
         //Проверяем, что каждая следующая страна в списке идет в алфавитном порядке
         for (int i = 0; i < listCountryName.size() - 1; i++) {
-            if(listCountryName.get(i+1).getText().compareTo(listCountryName.get(i).getText()) > 0) {
+            if(listCountryName.get(i+1).getAttribute("innerText").compareTo(listCountryName.get(i).getAttribute("innerText")) > 0) {
                 isAlphabet = true;
             }
             assertThat(isAlphabet, is(true));
@@ -110,7 +110,6 @@ public class My9Test {
             //Возвращаемся на страницу Гео зоны для нового витка цикла
             driver.findElement(By.linkText("Geo Zones")).click();
         }
-
     }
 
     @After
