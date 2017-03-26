@@ -11,7 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -65,12 +64,53 @@ public class My9Test {
 
         //Переходим по ссылкам в те страны, где количество зон != 0
         for (int i = 0; i < listZonesNotNull.size(); i++) {
-            int x = listZonesNotNull.get(i);
-            driver.findElement(By.cssSelector("table.dataTable tr.row:nth-child("+x+") a")).click();
-            Thread.sleep(4000);
+            int numberCountry = listZonesNotNull.get(i);
+            driver.findElement(By.cssSelector("table.dataTable tr.row:nth-child("+numberCountry+") a")).click();
+
+           //Получаем список зон
+            List<WebElement> listZoneName = driver.findElements(By.cssSelector("table.dataTable tr td:nth-child(3) input[type=hidden]"));
+
+            //Проверяем, что зоны идут по алфавиту
+            for (int j = 0; j < listZoneName.size() - 1; j++) {
+            if(listZoneName.get(j+1).getAttribute("defaultValue").compareTo(listZoneName.get(j).getAttribute("defaultValue")) > 0) {
+                isAlphabet = true;
+            }
+            assertThat(isAlphabet, is(true));
+            }
+
+            //Возвращаемся к списку стран
             driver.findElement(By.cssSelector("ul#box-apps-menu li.selected a")).click();
-            Thread.sleep(4000);
+
         }
+        //Переходим на страницу http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones
+        driver.findElement(By.linkText("Geo Zones")).click();
+
+
+        //Находим элементы - страны
+        listCountryName = driver.findElements(By.cssSelector("tr.row td:nth-child(3) a"));
+        List<String> stringListCountryName = new ArrayList<String>();
+
+        //Сохраняем названия стран в список строк
+        for (int i = 0; i < listCountryName.size(); i++) {
+            stringListCountryName.add(listCountryName.get(i).getAttribute("innerText"));
+        }
+
+        //Переходим в страну и создаем список зон
+        for (int i = 0; i < stringListCountryName.size(); i++) {
+            driver.findElement(By.linkText(stringListCountryName.get(i))).click();
+            List<WebElement> countryZone = driver.findElements(By.cssSelector("table.dataTable td:nth-child(3) option[selected=selected]"));
+
+        //проверяем расположение зон в алфавитном порядке
+            for (int j = 0; j < countryZone.size() - 1; j++) {
+            if(countryZone.get(j+1).getAttribute("innerText").compareTo(countryZone.get(j).getAttribute("innerText")) > 0) {
+                isAlphabet = true;
+            }
+            assertThat(isAlphabet, is(true));
+        }
+            //Возвращаемся на страницу Гео зоны для нового витка цикла
+            driver.findElement(By.linkText("Geo Zones")).click();
+        }
+
     }
 
     @After
