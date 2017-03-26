@@ -29,7 +29,7 @@ public class My10Test {
     public void Test() {
         driver.get("http://localhost/litecart/en/");
 
-        //Проверка названия товара на главной и на странице товара
+        //1. Проверка названия товара на главной и на странице товара
         String nameOnHead, nameOnGood;
         nameOnHead = driver.findElement(By.cssSelector("div#box-campaigns div.name")).getText();
         driver.findElement(By.cssSelector("div#box-campaigns a.link")).click();
@@ -38,7 +38,7 @@ public class My10Test {
         driver.findElement(By.cssSelector("a i[title=Home]")).click();
 
 
-        //Проверка регулярной и аукционной цены
+        //2. Проверка регулярной и аукционной цены
 
         String regularPrice = driver.findElement(By.cssSelector("div#box-campaigns s.regular-price")).getAttribute("innerText");
         String campaignPrice = driver.findElement(By.cssSelector("div#box-campaigns strong.campaign-price")).getAttribute("innerText");
@@ -50,7 +50,7 @@ public class My10Test {
 
         driver.findElement(By.cssSelector("a i[title=Home]")).click();
 
-        //Проверка цены на главной (зачеркнута + серая)
+        //3. Проверка цены на главной (зачеркнута + серая)
         //Полагаем, что цена зачеркнута у класса regular-price
         assertThat(driver.findElement(By.cssSelector("div.price-wrapper s")).getAttribute("className"), is("regular-price"));
         //Проверяем, что цена - серая ("серый" цвет это такой, у которого в RGBa представлении одинаковые значения для каналов R, G и B)
@@ -77,8 +77,41 @@ public class My10Test {
         assertThat(x[1] == x[2], is(true));
         assertThat(x[2] == x[3], is(true));
 
-    }
+        driver.findElement(By.cssSelector("a i[title=Home]")).click();
 
+        //4. Проверяем аукционную цену
+        //Проверяем наличие тега strong
+        assertThat(driver.findElement(By.cssSelector("div#box-campaigns .campaign-price")).getTagName(), is("strong"));
+        //Проверяем цвет
+        color = driver.findElement(By.cssSelector("div#box-campaigns .campaign-price")).getCssValue("color");
+        colors = color.split("[(,]");
+        x = new int[colors.length];
+        for (int i = 1; i < colors.length - 1; i++) {
+            x[i] = Integer.parseInt(colors[i].replace(" ",""));
+        }
+
+        //Можно считать, что "красный" цвет это такой, у которого в RGBa представлении каналы G и B имеют нулевые значения)
+        assertThat(x[2] == 0, is(true));
+        assertThat(x[3] == 0, is(true));
+
+        //Переходим на страницу товара
+        driver.findElement(By.cssSelector("div#box-campaigns a.link")).click();
+
+        //Проверяем наличие тега strong
+        assertThat(driver.findElement(By.cssSelector("div.price-wrapper .campaign-price")).getTagName(), is("strong"));
+
+        //Проверяем цвет
+        color = driver.findElement(By.cssSelector("div.price-wrapper .campaign-price")).getCssValue("color");
+        colors = color.split("[(,]");
+        x = new int[colors.length];
+        for (int i = 1; i < colors.length - 1; i++) {
+            x[i] = Integer.parseInt(colors[i].replace(" ",""));
+        }
+
+        //Можно считать, что "красный" цвет это такой, у которого в RGBa представлении каналы G и B имеют нулевые значения)
+        assertThat(x[2] == 0, is(true));
+        assertThat(x[3] == 0, is(true));
+    }
 
     @After
     public void stop() {
