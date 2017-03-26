@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +32,7 @@ public class My10Test {
         driver.get("http://localhost/litecart/en/");
 
         //1. Проверка названия товара на главной и на странице товара
+
         String nameOnHead, nameOnGood;
         nameOnHead = driver.findElement(By.cssSelector("div#box-campaigns div.name")).getText();
         driver.findElement(By.cssSelector("div#box-campaigns a.link")).click();
@@ -111,6 +114,50 @@ public class My10Test {
         //Можно считать, что "красный" цвет это такой, у которого в RGBa представлении каналы G и B имеют нулевые значения)
         assertThat(x[2] == 0, is(true));
         assertThat(x[3] == 0, is(true));
+        driver.findElement(By.cssSelector("a i[title=Home]")).click();
+
+        //5. Проверяем, что аукционная цена крупнее (на главной странице)
+        campaignPrice = driver.findElement(By.cssSelector("div#box-campaigns .campaign-price")).getSize().toString();
+        regularPrice = driver.findElement(By.cssSelector("div#box-campaigns .regular-price")).getSize().toString();
+
+        String[] dimentionCampaignPrice = campaignPrice.split("[(,)]");
+        x = new int[dimentionCampaignPrice.length];
+        int sumCampaignPrice = 0;
+        for (int i = 1; i < dimentionCampaignPrice.length ; i++) {
+            x[i] = Integer.parseInt(dimentionCampaignPrice[i].replace(" ",""));
+            sumCampaignPrice += x[i];
+        }
+
+        String[] dimentionRegularPrice = regularPrice.split("[(,)]");
+        x = new int[dimentionRegularPrice.length];
+        int sumRegularPrice = 0;
+        for (int i = 1; i < dimentionRegularPrice.length ; i++) {
+            x[i] = Integer.parseInt(dimentionRegularPrice[i].replace(" ",""));
+            sumRegularPrice += x[i];
+        }
+        assertThat(sumCampaignPrice > sumRegularPrice, is(true));
+
+        // Проверяем, что аукционная цена крупнее (на странице товара)
+        driver.findElement(By.cssSelector("div#box-campaigns a.link")).click();
+        campaignPrice = driver.findElement(By.cssSelector("div.price-wrapper .campaign-price")).getSize().toString();
+        regularPrice = driver.findElement(By.cssSelector("div.price-wrapper .regular-price")).getSize().toString();
+
+        dimentionCampaignPrice = campaignPrice.split("[(,)]");
+        x = new int[dimentionCampaignPrice.length];
+        sumCampaignPrice = 0;
+        for (int i = 1; i < dimentionCampaignPrice.length ; i++) {
+            x[i] = Integer.parseInt(dimentionCampaignPrice[i].replace(" ",""));
+            sumCampaignPrice += x[i];
+        }
+
+        dimentionRegularPrice = regularPrice.split("[(,)]");
+        x = new int[dimentionRegularPrice.length];
+        sumRegularPrice = 0;
+        for (int i = 1; i < dimentionRegularPrice.length ; i++) {
+            x[i] = Integer.parseInt(dimentionRegularPrice[i].replace(" ",""));
+            sumRegularPrice += x[i];
+        }
+        assertThat(sumCampaignPrice > sumRegularPrice, is(true));
     }
 
     @After
