@@ -30,7 +30,7 @@ public class My9Test {
     }
 
     @Test
-    public void Test() throws InterruptedException {
+    public void Test() {
         driver.get("http://localhost/litecart/admin");
         driver.findElement(By.cssSelector("div.content [name=username]")).sendKeys("admin");
         driver.findElement(By.cssSelector("div.content [name=password]")).sendKeys("admin");
@@ -41,7 +41,7 @@ public class My9Test {
         // Получаем список стран
         List<WebElement> listCountryName = driver.findElements(By.cssSelector("table.dataTable tr.row td:nth-child(5)"));
 
-        //Проверяем, что каждая следующая страна списке идет в алфавитном порядке
+        //Проверяем, что каждая следующая страна в списке идет в алфавитном порядке
         for (int i = 0; i < listCountryName.size() - 1; i++) {
             if(listCountryName.get(i+1).getText().compareTo(listCountryName.get(i).getText()) > 0) {
                 isAlphabet = true;
@@ -53,7 +53,7 @@ public class My9Test {
         List<WebElement> listZones = driver.findElements(By.cssSelector("table.dataTable tr.row td:nth-child(6)"));
 
         //Список стран, у которых количество зон != 0
-        List<Integer> listZonesNotNull = new LinkedList<Integer>();
+        List<Integer> listZonesNotNull = new ArrayList<Integer>();
 
         //Заполняем listZonesNotNull
         for (int i = 0; i < listZones.size(); i++) {
