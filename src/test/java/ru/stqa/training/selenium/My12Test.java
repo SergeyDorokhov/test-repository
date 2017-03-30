@@ -47,6 +47,8 @@ public class My12Test {
 
         new Actions(driver).moveToElement(driver.findElement(By.cssSelector("input[name=quantity]"))).
                 moveByOffset(45,0).click().click().click().click().click().perform();
+        driver.findElement(By.cssSelector("input[name*=new_images]")).sendKeys("c:\\\\projects\\test-repository\\src\\test\\java\\ru\\stqa\\training\\selenium\\foto1.jpg");
+
 
         //Устанавливаем Date Valid From (DD)
         new Actions(driver).moveToElement(driver.findElement(By.cssSelector("input[name=date_valid_from]"))).
