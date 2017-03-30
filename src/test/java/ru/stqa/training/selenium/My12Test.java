@@ -9,6 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,7 +27,7 @@ public class My12Test {
     }
 
     @Test
-    public void test() throws InterruptedException {
+    public void test() throws InterruptedException, IOException {
         Select sel;
 
         driver.get("http://localhost/litecart/admin");
@@ -47,8 +50,9 @@ public class My12Test {
 
         new Actions(driver).moveToElement(driver.findElement(By.cssSelector("input[name=quantity]"))).
                 moveByOffset(45,0).click().click().click().click().click().perform();
-        driver.findElement(By.cssSelector("input[name*=new_images]")).sendKeys("c:\\\\projects\\test-repository\\src\\test\\java\\ru\\stqa\\training\\selenium\\foto1.jpg");
-
+        //Загружаем файл
+        File file = new File("src/test/java/ru/stqa/training/selenium/foto1.jpg");
+        driver.findElement(By.cssSelector("input[name*=new_images]")).sendKeys(file.getCanonicalPath());
 
         //Устанавливаем Date Valid From (DD)
         new Actions(driver).moveToElement(driver.findElement(By.cssSelector("input[name=date_valid_from]"))).
