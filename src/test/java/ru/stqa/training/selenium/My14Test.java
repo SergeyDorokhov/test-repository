@@ -8,6 +8,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -19,11 +22,12 @@ import static org.hamcrest.core.Is.is;
  */
 public class My14Test {
     private WebDriver driver;
-
+    private WebDriverWait wait;
     @Before
     public void start() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver,5);
+        //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
@@ -49,6 +53,8 @@ public class My14Test {
             for (String window : set) {
                 if (!window.equals(originalWindow)) {
                     driver.switchTo().window(window);
+                    //Ждем, когда количество открытых окон будет равно двум
+                    wait.until(ExpectedConditions.numberOfWindowsToBe(2));
                     driver.close();
                     driver.switchTo().window(originalWindow);
                 }
