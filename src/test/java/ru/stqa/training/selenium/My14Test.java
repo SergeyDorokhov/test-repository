@@ -8,12 +8,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -22,7 +19,6 @@ import static org.hamcrest.core.Is.is;
  */
 public class My14Test {
     private WebDriver driver;
-
 
     @Before
     public void start() {
@@ -59,7 +55,7 @@ public class My14Test {
                 }
             }
         }
-        //Откроем все внешние ссылки и посчитаем их количество. С учетом исходной страницы число страниц будет равно 8
+        //Откроем все внешние ссылки и посчитаем количество открытых страниц. С учетом исходной страницы, число страниц будет равно 8
         list = driver.findElements(By.cssSelector("i.fa.fa-external-link"));
         for (int i = 0; i < numberOfExternalLink; i++) {
             list.get(i).click();
