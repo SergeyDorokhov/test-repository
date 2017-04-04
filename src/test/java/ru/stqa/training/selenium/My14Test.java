@@ -23,19 +23,21 @@ public class My14Test {
     @Before
     public void start() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
-    public void test() {
+    public void test() throws InterruptedException {
         List<WebElement> list;
         Set<String> set;
+        String originalWindow;
 
         driver.get("http://localhost/litecart/admin");
         driver.findElement(By.cssSelector("input[name=username]")).sendKeys("admin");
         driver.findElement(By.cssSelector("input[name=password]")).sendKeys("admin" + Keys.ENTER);
         driver.findElement(By.cssSelector("a[href*=countries]")).click();
         driver.findElement(By.linkText("Afghanistan")).click();
+        originalWindow = driver.getWindowHandle();
 
         int numberOfExternalLink = driver.findElements(By.cssSelector("i.fa.fa-external-link")).size();
 
@@ -44,18 +46,15 @@ public class My14Test {
             list = driver.findElements(By.cssSelector("i.fa.fa-external-link"));
             list.get(i).click();
             set = driver.getWindowHandles();
-            for (String s : set) {
-                if (!s.equals(driver.getWindowHandle())) {
-                    driver.switchTo().window(s);
+            for (String window : set) {
+                if (!window.equals(originalWindow)) {
+                    driver.switchTo().window(window);
                     driver.close();
-                    set = driver.getWindowHandles();
-                    for (String s1 : set) {
-                        driver.switchTo().window(s1);
-                    }
+                    driver.switchTo().window(originalWindow);
                 }
             }
         }
-        //Вторая проверка: откроем все внешние ссылки и посчитаем количество открытых страниц.
+        //Дополнительная проверка: откроем все внешние ссылки и посчитаем количество открытых страниц.
         //С учетом исходной страницы, число открытых страниц будет равно 8
         list = driver.findElements(By.cssSelector("i.fa.fa-external-link"));
         for (int i = 0; i < numberOfExternalLink; i++) {
