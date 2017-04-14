@@ -37,8 +37,8 @@ import ru.stqa.training.selenium.Objects.pages.ProductPage;
         homePage.selectProduct().click();
     }
 
-    public void goToProductPage() {
-        homePage.goToProductPage().click();
+    public void goToCartPage() {
+        homePage.goToCartPage().click();
     }
 
     public void returnToHome() {

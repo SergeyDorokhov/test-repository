@@ -16,7 +16,7 @@ public class HomePage {
     public void open(){
         driver.get("http://localhost/litecart/en/");
     }
-    public WebElement goToProductPage() {
+    public WebElement goToCartPage() {
         return driver.findElement(By.linkText("Checkout »"));
     }
     public WebElement selectProduct() {

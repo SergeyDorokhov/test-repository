@@ -15,7 +15,7 @@ public class My13TestNew extends TestBase {
             app.addProductToCart(i);
             app.returnToHome();
         }
-        app.goToProductPage();
+        app.goToCartPage();
         app.deleteAllProducts(app.countNumberRowsProductsInCart());
     }
 }
