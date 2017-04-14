@@ -45,8 +45,8 @@ import ru.stqa.training.selenium.objects.pages.ProductPage;
         cartPage.returnToHome().click();
     }
 
-    public void deleteAllProducts(int count) throws InterruptedException {
-        cartPage.deleteAllProducts(wait, count);
+    public void deleteAllProducts() throws InterruptedException {
+        cartPage.deleteAllProducts(wait, countNumberRowsProductsInCart());
     }
 
     public int countNumberRowsProductsInCart() {
