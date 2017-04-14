@@ -1,4 +1,4 @@
-package ru.stqa.training.selenium.Objects.data;
+package ru.stqa.training.selenium.objects.data;
 
 /**
  * Created by Doroh on 14.04.2017.

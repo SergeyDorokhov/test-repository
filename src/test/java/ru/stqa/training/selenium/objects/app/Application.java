@@ -1,12 +1,12 @@
-package ru.stqa.training.selenium.Objects.app;
+package ru.stqa.training.selenium.objects.app;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.stqa.training.selenium.Objects.data.Data;
-import ru.stqa.training.selenium.Objects.pages.CartPage;
-import ru.stqa.training.selenium.Objects.pages.HomePage;
-import ru.stqa.training.selenium.Objects.pages.ProductPage;
+import ru.stqa.training.selenium.objects.data.Data;
+import ru.stqa.training.selenium.objects.pages.CartPage;
+import ru.stqa.training.selenium.objects.pages.HomePage;
+import ru.stqa.training.selenium.objects.pages.ProductPage;
 
 /**
  * Created by Doroh on 14.04.2017.
