@@ -1,11 +1,11 @@
-package ru.stqa.training.selenium.Objects;
+package ru.stqa.training.selenium.Objects.tests;
 
 import org.junit.Test;
 
 /**
  * Created by Doroh on 01.04.2017.
  */
-public class My13TestNew extends TestBase{
+public class My13TestNew extends TestBase {
 
     @Test
     public void addProductsToCartAndDeleteThem() throws InterruptedException {

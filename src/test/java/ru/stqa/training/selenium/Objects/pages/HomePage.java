@@ -1,4 +1,4 @@
-package ru.stqa.training.selenium.Objects;
+package ru.stqa.training.selenium.Objects.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -1,7 +1,8 @@
-package ru.stqa.training.selenium.Objects;
+package ru.stqa.training.selenium.Objects.tests;
 
 import org.junit.After;
 import org.junit.Before;
+import ru.stqa.training.selenium.Objects.app.Application;
 
 /**
  * Created by Doroh on 14.04.2017.
